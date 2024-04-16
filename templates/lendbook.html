@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>lendsuccess</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+</head>
+<body style="background-color: aquamarine;">
+    <div>
+        <button style="margin-left: 20px;margin-top: 30px;" type="submit" class="btn btn-dark"> <a href="/bookshop" method="POST" style="text-decoration: none;color: aqua;">Back</a></button>
+    </div>
+    <div style="max-width: 500px; margin: 50px auto; padding: 20px; background-color: black; border-radius: 8px; box-shadow:4px black;">
+        <h1 style="text-align: center;color: whitesmoke; margin-bottom: 20px;">How many days do you need the book "{{ book_title }}"?</h1>
+        <form action="/book_request/{{ book_id }}" method="POST" style="text-align: center;">
+            <p style="color: azure;">Book Title: {{ book_title }}</p>
+            <label for="tenure" style="display: block; color: azure; margin-bottom: 10px;">Enter the number of days:</label>
+            <input type="number" id="tenure" name="tenure" required style="width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid white; border-radius: 4px; box-sizing: border-box; font-size: 16px;">
+            <button type="submit" style="background-color: blue; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-size: 16px; transition: background-color 0.3s;">Lend Book</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+#mainbody{
+    width: 80%;
+    margin: auto;
+    height: 800px;
+    }
+
+.nav-link.active {
+    background-color: #60adff;
+    color: #ffffff;
+    border-radius: 10%;
+}
+
+

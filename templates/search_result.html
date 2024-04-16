@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+</head>
+<body style="background: linear-gradient(90deg, red, blue);">
+    <div class="container">
+        <h1 style="align-items: center;color: bisque;">Search Results</h1>
+        <hr>
+        <div>
+            <button style="margin-left: 20px;margin-top: 30px;" type="submit" class="btn btn-dark">
+                <a href="/bookshop" method="POST" style="text-decoration: none;color: aqua;">Back</a>
+            </button>
+        </div>
+        <br>
+        <div class="row">
+            {% if books %}
+                {% for book in books %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <div class="card-body" style="background-color:black;">
+                                <h5 class="card-title" style="color: antiquewhite;font-weight: 1000;">{{ book.BookName }}</h5>
+                                <p class="card-text" style="color:rgb(124, 255, 244);">Author: {{ book.Author }}</p>
+                                <p class="card-text" style="color:rgb(124, 255, 244);">Section: {{ book.section.SectionName }}</p>
+                                <p class="card-text" style="color:rgb(124, 255, 244)">Average Rating: {{ book.AvgRating }}</p>
+                                <form action="/tenure_details/{{ book.BookID }}" method="GET">
+                                    <button type="submit" class="btn btn-info">Lend</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-md-12 mb-4">
+                    <div class="alert alert-warning" role="alert">
+                        Sorry!! That book is not available :(
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

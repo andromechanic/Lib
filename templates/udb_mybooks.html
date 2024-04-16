@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>udb_mybooks</title>
+    <link rel="stylesheet" href="static/udb.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+</head>
+<body style="background: linear-gradient(90deg, rgb(113, 209, 253), rgb(219, 239, 131));">
+<div id="mainbody">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">User's Dashboard</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/mybooks">My Books</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/bookshop" method="POST" class="nav-link">Books</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div style="margin-left: 75%;">
+    </div>
+    <div style="font-family: 'Gill Sans'; font-size: large;">
+        Current
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Book Name</th>
+                <th scope="col">Author</th>
+                <th scope="col">Section</th>
+                <th scope="col">Date Lent</th>
+                <th scope="col">Status</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transection, book, trans_id, date_lended in requested_books %}
+            <tr>
+                <th scope="row">{{ book.BookName }}</th>
+                <td>{{ book.Author }}</td>
+                <td>{{ book.section.SectionName }}</td>
+                <td>{{ date_lended }}</td>
+                <td><button type="button" disabled class="btn btn-warning">Waiting For Approval</button></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div style="font-family: 'Gill Sans'; font-size: large; ">
+        Approved
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Book Name</th>
+                <th scope="col">Author</th>
+                <th scope="col">Section</th>
+                <th scope="col">Date Lent</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transection, book, trans_id, date_lended in approved_books %}
+            <tr>
+                <th scope="row">{{ book.BookName }}</th>
+                <td>{{ book.Author }}</td>
+                <td>{{ book.section.SectionName }}</td>
+                <td>{{ date_lended }}</td>
+                <td>
+                    <a href="/purchase/{{ book.BookID }}" class="btn btn-primary">Buy & Download</a> 
+                    <a href="/view/{{ book.BookID }}" class="btn btn-success">View</a>  
+                    <form action="/returnbook/{{ trans_id }}" method="POST" style="display: inline;">
+                        <button type="submit" class="btn btn-secondary">Return</button>
+                    </form>
+                    <!-- Modal for giving ratings -->
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal{{ book.BookID }}">
+                        Give Ratings
+                    </button>
+                    <div class="modal fade" id="exampleModal{{ book.BookID }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Ratings</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Select Rating
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <form action="/submit_feedback" method="POST">
+                                                <div style="display: flex; text-align: center;">
+                                                    <div class="star">
+                                                        <input type="radio" id="five" name="rate" value="5">
+                                                        <label for="five">5</label>
+                                                    </div>
+                                                    <div class="star">
+                                                        <input type="radio" id="four" name="rate" value="4">
+                                                        <label for="four">4</label>
+                                                    </div>
+                                                    <div class="star">
+                                                        <input type="radio" id="three" name="rate" value="3">
+                                                        <label for="three">3</label>
+                                                    </div>
+                                                    <div class="star">
+                                                        <input type="radio" id="two" name="rate" value="2">
+                                                        <label for="two">2</label>
+                                                    </div>
+                                                    <div class="star">
+                                                        <input type="radio" id="one" name="rate" value="1">
+                                                        <label for="one">1</label>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="feedback" class="form-label">Feedback</label>
+                                                        <textarea class="form-control" id="feedback" rows="3" name="feedback"></textarea>
+                                                    </div>
+                                                    <div>
+                                                        <input type="hidden" name="user_id" value="{{ user_id }}">
+                                                        <input type="hidden" name="book_id" value="{{ book.BookID }}">
+                                                        <input type="submit" title="rate" style="background-color: #ffc107; border: none; border-radius: 5px;">
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div style="font-family: 'Gill Sans'; font-size: large; ">
+        Declined
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Book Name</th>
+                <th scope="col">Author</th>
+                <th scope="col">Section</th>
+                <th scope="col">Date Lent</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transection, book, trans_id, date_lended in declined_books %}
+            <tr>
+                <th scope="row">{{ book.BookName }}</th>
+                <td>{{ book.Author }}</td>
+                <td>{{ book.section.SectionName }}</td>
+                <td>{{ date_lended }}</td>
+                <td><button type="button" disabled class="btn btn-danger">Declined</button></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

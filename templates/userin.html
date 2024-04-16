@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <title>udb_books</title>
+    <link rel="stylesheet" href="static/udb.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+        <a class="navbar-brand" href="#">{{ u_name }}'s dashboard</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/mybooks" method="POST">My Books</a>  
+            </li>
+            <li class="nav-item">
+                <a  class="nav-link active" aria-current="page" href="udb_books.html">Books</a>
+            </li>
+            <li class="nav-item">
+                 <a class="nav-link" href="udb_stats.html">Stats</a>
+            </li>
+            <li class="nav-item">
+                 <a class="nav-link" href="/logout">Logout</a>
+            </li>
+            </ul>
+        </div>
+        </div>
+    </nav>
+    <div style="margin-left: 75%;">
+        <nav class="navbar navbar-light bg-white">
+            <div class="container-fluid">
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Filter</button>
+            </form>
+            </div>
+        </nav>
+        <div style="display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background-color: #f0f6fc;">
+            <div style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; text-align: center; margin-right: 35%;">
+                <h1>YAYYY You Are In!!!!</h1>
+            </div>
+        </div>
+</body>
+</html>

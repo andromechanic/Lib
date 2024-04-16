@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of Books</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+</head>
+<body style="background-color: black;">
+    <div>
+        <button style="margin-left: 20px; margin-top: 30px;" type="button" class="btn btn-dark">
+            <a href="/adminloggedin" style="text-decoration: none; color: aqua;">Back</a>
+        </button>
+    </div>
+    <div class="container">
+        <h1 style="text-align: center; margin-bottom: 30px; color: lightblue;">List of Books</h1>
+        
+        <div style="margin-bottom: 50px;">
+            <h2 style="color: lightgreen;">Approved Books</h2>
+            <table class="table table-striped" style="border: 1px solid whitesmoke; background-color: white;">
+                <thead>
+                    <tr>
+                        <th scope="col" style="background-color: lightblue;">Book Name</th>
+                        <th scope="col" style="background-color: lightblue;">User ID</th>
+                        <th scope="col" style="background-color: lightblue;">Days Issued</th>
+                        <th scope="col" style="background-color: lightblue;">Date Issued</th>
+                        <th scope="col" style="background-color: lightblue;">Actions</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for book in approved_books %}
+                    <tr>
+                        <td>{{ book[1].BookName }}</td>
+                        <td>{{ book[0].UserID }}</td>
+                        <td>{{ book[0].Tenure }}</td>
+                        <td>{{ book[0].DateIssued.strftime('%Y-%m-%d') }}</td>
+                        <td>
+                            <form action="/revoke_access/{{ book[0].UserID }}/{{ book[1].BookID }}" method="POST">
+                                <input type="hidden" name="book_id" value="{{ book[1].BookID }}"> 
+                                <button type="submit" class="btn btn-danger">Revoke Access</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            <h2 style="color: lightcoral;">Declined/Returned Books</h2>
+            <table class="table table-striped" style="border: 1px solid wheat; background-color: white;">
+                <thead>
+                    <tr>
+                        <th scope="col" style="background-color: lightgray;">Book Name</th>
+                        <th scope="col" style="background-color: lightgray;">User ID</th>
+                        <th scope="col" style="background-color: lightgray;">Days Requested</th>
+                        <th scope="col" style="background-color: lightgray;">Date Declined</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for book in declined_books %}
+                    <tr>
+                        <td>{{ book[1].BookName }}</td>
+                        <td>{{ book[0].UserID }}</td>
+                        <td>{{ book[0].Tenure }}</td>
+                        <td>{{ book[0].DateIssued.strftime('%Y-%m-%d') }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

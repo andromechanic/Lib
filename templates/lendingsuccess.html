@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Lending Success</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    </head>
+<body style="background-color: aquamarine; display: flex; justify-content: center; align-items: center;">
+    <div>
+        <h2 style="text-align: center;">Lending Success</h2>
+        <div class="card" style="width: 18rem; align-items: center;">
+            <div class="card-body">
+                <p style="font-size: larger; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" class="message">Your book "{{ book.BookName }}" has been requested. Please wait for admin approval.</p>
+                <form action="/mybooks" method="POST">
+                    <button type="submit" style="background-color: black; border-radius: 10px; color: #fff;">My Books</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
